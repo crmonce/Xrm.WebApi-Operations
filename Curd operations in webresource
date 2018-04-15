@@ -1,0 +1,88 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="ClientGlobalContext.js.aspx" type="text/javascript"></script>
+	<script type="text/javascript">
+		function Update() {
+			var entityData = { "subject": document.getElementById('subject').value, "lastname": document.getElementById('lastname').value };
+			Xrm.WebApi.updateRecord("lead","66EB0C28-493A-E811-A95B-000D3AF089DF",entityData).then(
+                    function success(result) {
+                    	alert("Record updated successfully ");
+                    },
+                    function (error) {
+                    	console.log(error.message);
+                    });
+
+		}
+		// Retrieve the record.
+		function Retrieve() {
+			
+			var filter = "$select=leadid,subject,firstname,lastname";
+			Xrm.WebApi.retrieveRecord("lead", "8CCB768E-1540-E811-A95D-000D3AF07B7A", filter).then(function success(result)
+								{
+									alert("Record retrieved successfully : "+result.lastname);
+									},
+								function (error)
+								{
+									console.log(error.message);        
+								});
+
+		}
+
+		function Delete() {
+
+			Xrm.WebApi.deleteRecord("lead", "B2762BD6-7140-E811-A95D-000D3AF07B7A").then(
+                    function success(result)
+                    {
+                    	alert("Record Deleted successfully ");
+                    },
+                    function (error)
+                    {
+                    	console.log(error.message);        
+                    });
+
+
+		}
+
+	</script>
+	<meta>
+	<meta>
+	<meta>
+</head>
+<body style="word-wrap: break-word;">
+	<h3>Xrm.WebApi Update Example</h3>
+	<table>
+		<tbody>
+			<tr>
+				<td>
+					<p> Subject:</p>
+				</td>
+				<td>
+					<input type="text" id="subject">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<p> Last Name:</p>
+				</td>
+				<td>
+					<input type="text" id="lastname">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input type="button" value="Update Lead" onclick="Update();">
+				</td>
+				<td>
+					<input type="button" value="Retrieve Lead" onclick="Retrieve();">
+				</td>
+				<td>
+					<input type="button" value="Delete Lead" onclick="Delete();">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+</body>
+</html>
